@@ -98,7 +98,7 @@ class FerretDetector():
         else:
             print(f"No ferret detected - Similarity: {similarity}%")
         
-        if confidence >= 15:
+        if confidence >= 5:
             print("Paging responders..")
             result = self.create_pagerduty_incident(
                 summary="Ferret has escaped!!!",
@@ -110,8 +110,8 @@ class FerretDetector():
 
             confidence = 0
 
-        # reset confidence every 10 seconds
-        if confidence_elapsed >= 10:
+        # reset confidence every 15 seconds
+        if confidence_elapsed >= 15:
             confidence = 0
             confidence_elapsed = 0
 
@@ -188,8 +188,8 @@ def main(config: Dict[str, Any] = {}) -> int:
 
 if __name__ == "__main__":
     main(config = {
-        "rtsp_url": "rtsp://ferretcam:escape@192.168.1.36/live",
+        "rtsp_url": os.getenv('RTSP_URL'),
         "api_url": "http://localhost:9001",
         "max_fps": 4,
-        "threshold": 0.18
+        "threshold": 0.20
 })
