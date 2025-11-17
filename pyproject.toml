@@ -1,0 +1,10 @@
+[project]
+name = "ferret-detect"
+version = "0.1.0"
+description = "Ferret escape prevention made simple."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "inference>=0.60.0",
+    "inference-cli>=0.60.0",
+]
