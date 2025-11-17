@@ -755,12 +755,14 @@ source = { virtual = "." }
 dependencies = [
     { name = "inference" },
     { name = "inference-cli" },
+    { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "inference", specifier = ">=0.60.0" },
     { name = "inference-cli", specifier = ">=0.60.0" },
+    { name = "python-dotenv", specifier = ">=1.0.1" },
 ]
 
 [[package]]

@@ -1,9 +1,12 @@
 """Ferret escape prevention using an RTSP camera feed and an inference server."""
 from inference_sdk import InferenceHTTPClient
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
 import time
 import requests
+import os
 
+load_dotenv()
 
 class FerretDetector():
   """A class to detect ferrets escaping using an RTSP camera feed and an inference server."""
@@ -33,7 +36,7 @@ class FerretDetector():
     self.workflow_id = workflow_id
     self._pipeline_id: str = ""
 
-    self._client = InferenceHTTPClient(api_url=self.api_url, api_key="")
+    self._client = InferenceHTTPClient(api_url=self.api_url, api_key=os.getenv('ROBOFLOW_API_KEY'))
 
   @property
   def pipeline_id(self) -> str:
@@ -116,7 +119,7 @@ class FerretDetector():
                                 summary: str,
                                 severity: str = "critical",
                                 source: str = "Front yard camera",
-                                routing_key: str = "") -> Dict[str, Any]:
+                                routing_key: str = str(os.getenv('PAGERDUTY_API_KEY'))) -> Dict[str, Any]:
     url = "https://events.pagerduty.com/v2/enqueue"
     
     payload = {
