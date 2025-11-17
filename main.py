@@ -90,9 +90,11 @@ class FerretDetector():
         output = result["outputs"][0]
         is_match = output.get("is_match")
         similarity = round(output.get("similarity")*100, 1)
+
         if is_match:
             print(f"!!! FERRET DETECTED !!! - Similarity: {similarity}%")
             confidence += 1
+            print(f"Confidence: {confidence}")
         else:
             print(f"No ferret detected - Similarity: {similarity}%")
         
@@ -111,6 +113,8 @@ class FerretDetector():
         # reset confidence every 10 seconds
         if confidence_elapsed >= 10:
             confidence = 0
+            confidence_elapsed = 0
+
         confidence_elapsed += (1/self.max_fps)
 
         time.sleep(1/self.max_fps)
@@ -187,5 +191,5 @@ if __name__ == "__main__":
         "rtsp_url": "rtsp://ferretcam:escape@192.168.1.36/live",
         "api_url": "http://localhost:9001",
         "max_fps": 4,
-        "threshold": 0.16
+        "threshold": 0.18
 })
